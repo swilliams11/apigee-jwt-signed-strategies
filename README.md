@@ -115,13 +115,16 @@ curl -X POST https://org-env.apigee.net/jwt_signed_strategy/create-rs256?apikey=
 ```
 
 **Response**
-```{
+```
+{
   "jwt" : "eyJhb_iw-4qSH4DA"
-}```
+}
+```
 
 **Decoded JWT**
 
-```{
+```
+{
   "primarylanguage": "English",
   "sub": "jwt_signed_strategies",
   "aud": "Optional-String-or-URI",
@@ -129,4 +132,5 @@ curl -X POST https://org-env.apigee.net/jwt_signed_strategy/create-rs256?apikey=
   "iss": "http://yourcompany.net",
   "exp": 1498174140,
   "iat": 1498172340
-}```
+}
+```
