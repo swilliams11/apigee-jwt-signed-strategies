@@ -1,0 +1,109 @@
+{
+    "version": "1.0",
+    "envConfig": {
+        "test": {
+          "targetServers": [
+              {
+                "name" : "auth0",
+                "host" : "yourdomain.auth0.com",
+                "isEnabled" : true,
+                "port" : 443,
+                "sSLInfo": {
+                  "enabled": "true"
+                }
+              }
+          ],
+          "caches": [
+              {
+                "name": "auth0Cache",
+                "description": "Auth0 Cache",
+                "expirySettings": {
+                    "timeoutInSec": {
+                        "value": "300"
+                    },
+                    "valuesNull": false
+                }
+              }
+          ],
+          "kvms": [
+          ]
+        },
+        "prod": {
+          "targetServers": [
+              {
+                "name" : "auth0",
+                "host" : "yourdomain.auth0.com",
+                "isEnabled" : true,
+                "port" : 443,
+                "sSLInfo": {
+                  "enabled": "true"
+                }
+              }
+          ],
+          "caches": [
+              {
+                "name": "auth0Cache",
+                "description": "Auth0 Cache",
+                "expirySettings": {
+                    "timeoutInSec": {
+                        "value": "300"
+                    },
+                    "valuesNull": false
+                }
+              }
+          ],
+          "kvms": [
+            ]
+        }
+    },
+    "orgConfig": {
+        "apiProducts": [
+            {
+                "name": "jwt-sign-strategies-product",
+                "apiResources": [
+                    "/",
+                    "/**"
+                ],
+                "approvalType": "auto",
+                "attributes": [
+                    {
+                        "name": "description",
+                        "value": "product to demonstrate jwt strategies"
+                    }
+                ],
+                "description": "product to demonstrate jwt strategies",
+                "displayName": "jwt-sign-strategies-product",
+                "environments": [
+                    "test",
+                    "prod"
+                ],
+                "proxies": [
+                    "jwt_signed_strategies",
+                ],
+                "quota": "10000",
+                "quotaInterval": "1",
+                "quotaTimeUnit": "month",
+                "scopes": []
+            }
+        ],
+        "developers": [
+            {
+                "email": "john@example.com",
+                "firstName": "John",
+                "lastName": "Example",
+                "userName": "johnexample",
+                "attributes": []
+            }
+        ],
+        "developerApps": {
+            "john@example.com": [
+                {
+                    "name": "",
+                    "apiProducts": [ "jwt-sign-strategies-product" ],
+                    "callbackUrl": "https://callback.io",
+                    "scopes": []
+                }
+            ]
+        }
+    }
+}

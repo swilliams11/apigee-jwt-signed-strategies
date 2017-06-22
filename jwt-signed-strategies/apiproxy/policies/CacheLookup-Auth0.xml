@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<LookupCache async="false" continueOnError="false" enabled="true" name="CacheLookup-Auth0">
+    <DisplayName>CacheLookup-Auth0</DisplayName>
+    <CacheResource>auth0Cache</CacheResource>
+    <AssignTo>cached.auth0.certs</AssignTo>
+    <Scope>Application</Scope>
+    <CacheKey>
+        <Prefix>auth0cert</Prefix>
+        <KeyFragment>1</KeyFragment>
+    </CacheKey>
+</LookupCache>

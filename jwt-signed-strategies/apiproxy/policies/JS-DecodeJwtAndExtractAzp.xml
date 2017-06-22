@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Javascript async="false" continueOnError="false" enabled="true" timeLimit="200" name="JS-DecodeJwtAndExtractAzp">
+    <DisplayName>JS-DecodeJwtAndExtractAzp</DisplayName>
+    <Properties>
+        <Property name="jwtvar">request.formparam.jwt</Property>
+    </Properties>
+    <ResourceURL>jsc://decodeJwtAndExtractAzp.js</ResourceURL>
+    <IncludeURL>jsc://jwtDecode.js</IncludeURL>
+</Javascript>

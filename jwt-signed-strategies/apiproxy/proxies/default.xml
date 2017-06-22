@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxyEndpoint name="default">
+    <HTTPProxyConnection>
+        <BasePath>/jwt_signed_strategy</BasePath>
+        <VirtualHost>default</VirtualHost>
+        <VirtualHost>secure</VirtualHost>
+    </HTTPProxyConnection>
+    <FaultRules>
+        <FaultRule name="rule1">
+            <Condition>jwt_error != null</Condition>
+            <Step>
+                <Name>AM-PublishError</Name>
+            </Step>
+        </FaultRule>
+    </FaultRules>
+    <PreFlow name="PreFlow">
+        <Request/>
+    </PreFlow>
+    <PostFlow name="PostFlow"/>
+    <Flows>
+        <Flow name="create jwt token RS256">
+            <Condition>(proxy.pathsuffix ~~ "/create-(RS|rs)256$") and (request.verb = "POST")</Condition>
+            <Description>Create a JWT with alg=RS256 and include the azp</Description>
+            <Request>
+                <Step>
+                    <Name>EV-ExtractClientId</Name>
+                </Step>
+                <Step>
+                    <Name>Verify-API-Key</Name>
+                </Step>
+                <Step>
+                    <Name>JWT-Create-RS256-2</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>AM-JWT-Create-Response</Name>
+                </Step>
+            </Response>
+        </Flow>
+        <Flow name="validate JWT first then extract client id">
+            <Condition>(proxy.pathsuffix ~~ "/validate-auth0$") and (request.verb = "POST")</Condition>
+            <Description>Validate the Auth0 JWT then extract the client id from the JWT and validate that.</Description>
+            <Request>
+                <Step>
+                    <Name>CacheLookup-Auth0</Name>
+                </Step>
+                <Step>
+                    <Name>SC-RetrieveAuth0Certs</Name>
+                    <Condition>cached.auth0.certs = null</Condition>
+                </Step>
+                <Step>
+                    <Name>CacheInsert-Auth0Cert</Name>
+                    <Condition>cached.auth0.certs = null</Condition>
+                </Step>
+                <Step>
+                    <Name>AV-Auth0Certs</Name>
+                    <Condition>cached.auth0.certs != null</Condition>
+                </Step>
+                <Step>
+                    <Name>JS-extractAuth0Certs</Name>
+                </Step>
+                <!-- this step determines which cert to use during the verification -->
+                <Step>
+                    <Name>JS-Extract-JWT-kid-for-Auth0</Name>
+                </Step>
+                <Step>
+                    <Name>RF-BadJwt</Name>
+                    <Condition>auth0_certificate = null</Condition>
+                </Step>
+                <Step>
+                    <Name>JWT-Parse-Verify-RS256-auth0</Name>
+                </Step>
+                <Step>
+                    <Name>RF-InvalidJWT</Name>
+                    <Condition>jwt_isValid == false</Condition>
+                </Step>
+                <Step>
+                    <Name>JS-ExtractAuthorizedParty</Name>
+                </Step>
+                <Step>
+                    <Name>Verify-API-Key</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>AM-JWT-Parse-Response</Name>
+                </Step>
+            </Response>
+        </Flow>
+        <Flow name="extract client ID from JWT then validate JWT">
+            <Condition>(proxy.pathsuffix ~~ "/validate-auth0-2$") and (request.verb = "POST")</Condition>
+            <Description>Extract the client id from the JWT first then validate that. why do all the validation if the client id is invalid? </Description>
+            <Request>
+                <Step>
+                    <Name>JS-DecodeJwtAndExtractAzp</Name>
+                </Step>
+                <Step>
+                    <Name>Verify-API-Key</Name>
+                </Step>
+                <Step>
+                    <Name>CacheLookup-Auth0</Name>
+                </Step>
+                <Step>
+                    <Name>SC-RetrieveAuth0Certs</Name>
+                    <Condition>cached.auth0.certs = null</Condition>
+                </Step>
+                <Step>
+                    <Name>CacheInsert-Auth0Cert</Name>
+                    <Condition>cached.auth0.certs = null</Condition>
+                </Step>
+                <Step>
+                    <Name>AV-Auth0Certs</Name>
+                    <Condition>cached.auth0.certs != null</Condition>
+                </Step>
+                <Step>
+                    <Name>JS-extractAuth0Certs</Name>
+                </Step>
+                <!-- this step determines which cert to use during the verification -->
+                <Step>
+                    <Name>JS-Extract-JWT-kid-for-Auth0</Name>
+                </Step>
+                <Step>
+                    <Name>RF-BadJwt</Name>
+                    <Condition>auth0_certificate = null</Condition>
+                </Step>
+                <Step>
+                    <Name>JWT-Parse-Verify-RS256-auth0</Name>
+                </Step>
+                <Step>
+                    <Name>RF-InvalidJWT</Name>
+                    <Condition>jwt_isValid == false</Condition>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>AM-JWT-Parse-Response</Name>
+                </Step>
+            </Response>
+        </Flow>
+        <Flow name="unknown request">
+            <Request>
+                <Step>
+                    <Name>RF-UnknownRequest</Name>
+                </Step>
+            </Request>
+            <Response/>
+        </Flow>
+    </Flows>
+    <!-- catch all route -->
+    <RouteRule name="no-route"/>
+</ProxyEndpoint>

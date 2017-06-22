@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ServiceCallout async="false" continueOnError="false" enabled="true" name="SC-RetrieveAuth0Certs">
+    <DisplayName>SC-RetrieveAuth0Certs</DisplayName>
+    <Properties/>
+    <Request clearPayload="false">
+        <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+    </Request>
+    <Response>auth0Certs</Response>
+    <HTTPTargetConnection>
+        <LoadBalancer>
+            <Algorithm>RoundRobin</Algorithm>
+            <Server name="auth0"/>
+        </LoadBalancer>
+        <Path>/.well-known/jwks.json</Path>
+    </HTTPTargetConnection>
+</ServiceCallout>

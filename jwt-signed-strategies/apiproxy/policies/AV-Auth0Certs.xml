@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="AV-Auth0Certs">
+    <DisplayName>AV-Auth0Certs</DisplayName>
+    <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+    <AssignVariable>
+        <Name>auth0Certs.content</Name>
+        <Ref>cached.auth0.certs</Ref>
+    </AssignVariable>
+</AssignMessage>

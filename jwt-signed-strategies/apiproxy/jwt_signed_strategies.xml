@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<APIProxy revision="3" name="jwt_signed_strategies">
+    <Basepaths>/jwt_signed</Basepaths>
+    <ConfigurationVersion majorVersion="4" minorVersion="0"/>
+    <CreatedAt>1498171756766</CreatedAt>
+    <Description>Demonstrates how to save the client ID within the JWT and extract it and validate it with the Verify API Key policy.</Description>
+    <DisplayName>jwt_signed_strategies</DisplayName>
+    <LastModifiedAt>1498174379959</LastModifiedAt>
+    <Policies>
+        <Policy>AM-JWT-Create-Response</Policy>
+        <Policy>AM-JWT-Parse-Response</Policy>
+        <Policy>AM-PublishError</Policy>
+        <Policy>AV-Auth0Certs</Policy>
+        <Policy>CacheInsert-Auth0Cert</Policy>
+        <Policy>CacheLookup-Auth0</Policy>
+        <Policy>EV-ExtractClientId</Policy>
+        <Policy>JS-DecodeJwtAndExtractAzp</Policy>
+        <Policy>JS-Extract-JWT-kid-for-Auth0</Policy>
+        <Policy>JS-ExtractAuthorizedParty</Policy>
+        <Policy>JS-extractAuth0Certs</Policy>
+        <Policy>JWT-Create-RS256-2</Policy>
+        <Policy>JWT-Parse-Verify-RS256-auth0</Policy>
+        <Policy>RF-BadJwt</Policy>
+        <Policy>RF-InvalidJWT</Policy>
+        <Policy>RF-UnknownRequest</Policy>
+        <Policy>SC-RetrieveAuth0Certs</Policy>
+        <Policy>Verify-API-Key</Policy>
+    </Policies>
+    <ProxyEndpoints>
+        <ProxyEndpoint>default</ProxyEndpoint>
+    </ProxyEndpoints>
+    <Resources>
+        <Resource>java://guava-18.0.jar</Resource>
+        <Resource>java://json-smart-1.3.jar</Resource>
+        <Resource>java://jwt-signed-edge-callout.jar</Resource>
+        <Resource>java://nimbus-jose-jwt-3.10.jar</Resource>
+        <Resource>jsc://decodeJwtAndExtractAzp.js</Resource>
+        <Resource>jsc://extractAuth0Certs.js</Resource>
+        <Resource>jsc://extractAuthorizedParty.js</Resource>
+        <Resource>jsc://extractJwtKidForAuth0.js</Resource>
+        <Resource>jsc://jwtDecode.js</Resource>
+        <Resource>jsc://removeXmlDeclaration.js</Resource>
+    </Resources>
+    <Spec></Spec>
+    <TargetServers/>
+    <TargetEndpoints/>
+    <validate>false</validate>
+</APIProxy>

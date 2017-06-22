@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PopulateCache async="false" continueOnError="false" enabled="true" name="CacheInsert-Auth0Cert">
+    <DisplayName>CacheInsert-Auth0Cert</DisplayName>
+    <CacheResource>auth0Cache</CacheResource>
+    <Source>auth0Certs.content</Source>
+    <Scope>Application</Scope>
+    <CacheKey>
+        <Prefix>auth0cert</Prefix>
+        <KeyFragment>1</KeyFragment>
+    </CacheKey>
+    <ExpirySettings>
+        <TimeoutInSec>7200</TimeoutInSec>
+    </ExpirySettings>
+</PopulateCache>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<JavaCallout async="false" continueOnError="false" enabled="true" name="JWT-Parse-Verify-RS256-auth0">
+    <DisplayName>JWT-Parse-Verify-RS256-auth0</DisplayName>
+    <Properties>
+        <Property name="algorithm">RS256</Property>
+        <Property name="jwt">{request.formparam.jwt}</Property>
+        <!--Property name="certificate">{auth_certificate}</Property-->
+        <Property name="modulus">{auth0_modulus}</Property>
+        <Property name="exponent">{auth0_exponent}</Property>
+        <!-- claims to verify -->
+        <Property name="claim_iss">https://sw1.auth0.com/</Property>
+    </Properties>
+    <ClassName>com.apigee.callout.jwtsigned.JwtParserCallout</ClassName>
+    <ResourceURL>java://jwt-signed-edge-callout.jar</ResourceURL>
+</JavaCallout>
